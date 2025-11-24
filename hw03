@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บล็อกของฉัน</title>
+</head>
+<body>
+
+  <!-- ส่วนหัวของเว็บไซต์ -->
+  <header>
+    <h1>บล็อกเทคโนโลยี</h1>
+    <p>แหล่งรวมความรู้ด้าน Web Development</p>
+    
+    <!-- เมนูนำทาง -->
+    <nav>
+      <ul>
+        <li><a href="/">หน้าแรก</a></li>
+        <li><a href="/about">เกี่ยวกับเรา</a></li>
+        <li><a href="/contact">ติดต่อ</a></li>
+      </ul>
+ 

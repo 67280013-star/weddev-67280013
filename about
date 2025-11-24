@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านอาหารอร่อย</title>
+</head>
+
+<body>
+    <!-- Header พร้อม Navigation -->
+    <header>
+        <h1>ร้านอาหารอร่อย</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">หน้าแรก</a></li>
+                <li><a href="menu.html">เมนูอาหาร</a></li>
+                <li><a href="about.html">เกี่ยวกับเรา</a></li>
+                <li><a href="contact.html">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+          </header>
+
+    <!-- เนื้อหาหลัก -->
+    <main>
+        <h2>ยินดีต้อนรับ</h2>
+        <p>ร้านของเราเปิดทุกวัน เวลา 1000 - 2200 น.</p>
+        
+        <h3>เมนูแนะนำ</h3>
+        <ul>
+            <li><a href="menu.html#rice">ข้าวราดแกง</a></li>
+            <li><a href="menu.html#noodle">ก้วยเตี๋ยว</a></li>
+            <li><a href="menu.html#dessert">ของหวาน</a></li>
+        </ul>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact-info">
+        <h3>ติดต่อเรา</h3>
+        <p>
+            <strong>โทร</strong> 
+            <a href="tel+66812345678">081-234-5678</a>
+        </p>
+        <p>
+            <strong>Email</strong> 
+            <a href="mailto:info@restaurant.com">info@restaurant.com</a>
+        </p>
+        <p>
+            <strong>Facebook</strong> 
+            <a href="https://www.facebook.com/restaurant" 
+               target="_blank" 
+               rel="noopener noreferrer">
+                ติดตามเราบน Facebook
+            </a>
+        </p>
+        
+        <!-- ลิงก์กลับด้านบน -->
+        <p><a href="#top">กลับไปด้านบน ↑</a></p>
+    </footer>
+</body>
+</html>

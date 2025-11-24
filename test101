@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าเว็บแรกของฉัน</title>
+</head>
+
+<body>
+    <h1>ยินดีต้อนรับสู่เว็บไซต์ของฉัน</h1>
+    <p>นี่คือหน้าเว็บแรกที่ฉันสร้างขึ้นเอง!</p>
+</body>
+
+</html>
+<!-- Headings (หัวข้อ) -->
+<h1>หัวข้อใหญ่สุด</h1>
+<h2>หัวข้อรอง</h2>
+<h3>หัวข้อย่อย</h3>
+
+<!-- Paragraph (ย่อหน้า) -->
+<p>นี่คือย่อหน้าของข้อความ</p>
+
+<!-- Link (ลิงก์) -->
+<a href="https://www.google.com">ไปที่ Google</a>
+
+<!-- Image (รูปภาพ) -->
+<img src="cat.jpg" alt="รูปแมว">
+
+<!-- List (รายการ) -->
+<ul>
+    <li>รายการที่ 1</li>
+    <li>รายการที่ 2</li>
+</ul>
