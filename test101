@@ -25,7 +25,7 @@
 <a href="https://www.google.com">ไปที่ Google</a>
 
 <!-- Image (รูปภาพ) -->
-<img src="cat.jpg" alt="รูปแมว">
+<img src="cat.jpg" alt="แมวพันธุ์บ้านนั่งหันหน้าเข้ากล้อง แสดงท่าทางสงบ อยู่ในสภาพแวดล้อมภายในบ้าน">
 
 <!-- List (รายการ) -->
 <ul>

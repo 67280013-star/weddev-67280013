@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>บล็อกของฉัน</title>
+</head>
+<body>
+
+  <!-- ส่วนหัวของเว็บไซต์ -->
+  <header>
+    <h1>บล็อกเทคโนโลยี</h1>
+    <p>แหล่งรวมความรู้ด้าน Web Development</p>
+    
+    <!-- เมนูนำทาง -->
+    <nav>
+      <ul>
+        <li><a href="/">หน้าแรก</a></li>
+        <li><a href="/about">เกี่ยวกับเรา</a></li>
+        <li><a href="/contact">ติดต่อ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- เนื้อหาหลักของหน้า -->
+  <main>
+    
+    <!-- บทความที่ 1 -->
+    <article>
+      <header>
+        <h2>รู้จักกับ HTML5 Semantic Elements</h2>
+        <p>เขียนโดย <strong>นิกร</strong> | วันที่ 15 มกราคม 2025</p>
+      </header>
+      
+      <section>
+        <h3>HTML5 คืออะไร?</h3>
+        <p>HTML5 เป็นเวอร์ชันล่าสุดของ HTML ที่เพิ่ม Semantic Elements เข้ามา...</p>
+      </section>
+      
+      <section>
+        <h3>ทำไมต้องใช้ Semantic?</h3>
+        <p>การใช้ Semantic Elements ช่วยให้เว็บไซต์มีโครงสร้างที่ชัดเจน...</p>
+        
+        <figure>
+          <img src="semantic-diagram.png" alt="แผนภาพอธิบายองค์ประกอบ Semantic HTML เป็นกล่องที่มีป้ายกำกับ header nav main (รวม article และ section) aside footer พร้อมลูกศรแสดงการจัดวางเชิงลำดับ">
+          <figcaption>รูปที่ 1 โครงสร้าง Semantic HTML</figcaption>
+        </figure>
+      </section>
+      
+      <footer>
+        <p>แท็ก HTML, Web Development, Frontend</p>
+      </footer>
+    </article>
+
+    <!-- Sidebar เนื้อหาเสริม -->
+    <aside>
+      <h3>บทความแนะนำ</h3>
+      <ul>
+        <li><a href="#">CSS Flexbox เบื้องต้น</a></li>
+        <li><a href="#">JavaScript สำหรับมือใหม่</a></li>
+      </ul>
+    </aside>
+
+  </main>
+
+  <!-- ส่วนท้ายของเว็บ -->
+  <footer>
+    <p>&copy; 2025 บล็อกเทคโนโลยี. All rights reserved.</p>
+    <nav>
+      <a href="/privacy">นโยบายความเป็นส่วนตัว</a> |
+      <a href="/terms">เงื่อนไขการใช้งาน</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
+

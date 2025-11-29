@@ -1,0 +1,23 @@
+<!DOCTYPE html> html>
+<html lang="th">        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ทดสอบการเล่นไฟล์</title>
+</head>
+
+
+<body>
+    <h1>ทดสอบการเล่นไฟล์มีเดีย</h1>
+
+    <!-- รูปแบบพื้นฐาน -->
+    <video width="640" height="360" controls>
+      <source src="video.mp4" type="video/mp4">
+      <source src="video.webm" type="video/webm">
+      เบราว์เซอร์ของนักศึกษาไม่รองรับการเล่นวิดีโอ
+    </video>
+
+    <audio controls>
+      <source src="ma" type="audio/mpeg">
+      <source src="audio.ogg" type="audio/ogg">
+      เบราว์เซอร์ของนักศึกษาไม่รองรับการเล่นเสียง

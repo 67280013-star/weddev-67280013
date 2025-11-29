@@ -1,0 +1,55 @@
+<HTml:5></HTml:5>
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บล็อกของฉัน</title>
+</head>
+
+<body>
+
+    <FORm>
+        <!-- ส่วนหัวของเว็บไซต์ -->
+        <header>
+            <h1>บล็อกเทคโนโลยี</h1>
+            <p>แหล่งรวมความรู้ด้าน Web Development</p>
+
+            <!-- เมนูนำทาง -->
+            <nav>
+                <ul>
+                    <li><a href="/">หน้าแรก</a></li>
+                    <li><a href="/about">เกี่ยวกับเรา</a></li>
+                    <li><a href="/contact">ติดต่อ</a></li>
+                </ul>
+            </nav>
+        </header>
+    </FORm>
+    <form action="/submit" method="POST">
+        <!-- ใส่ input fields ตรงนี้ -->
+        <!-- Required (บังคับกรอก) -->
+        <input type="text" name="fullname" required>
+
+        <!-- Placeholder (ข้อความตัวอย่าง) -->
+        <input type="email" name="email" placeholder="example@email.com">
+
+        <!-- Pattern (กำหนดรูปแบบด้วย Regex) -->
+        <input type="text" name="phone" pattern="[0-9]{10}" placeholder="0812345678">
+
+        <!-- Min & Max Length -->
+        <input type="password" name="password" minlength="8" maxlength="20">
+
+        <!-- Disabled (ปิดการใช้งาน) -->
+        <input type="text" name="country" value="Thailand" disabled>
+
+        <!-- Readonly (อ่านได้อย่างเดียว) -->
+        <input type="text" name="id" value="12345" readonly>
+
+        <!-- Autofocus (โฟกัสอัตโนมัติ) -->
+        <input type="text" name="search" autofocus>
+
+        <button type="submit">ส่ง</button>
+
+        <button type="submit">ส่งข้อมูล</button>
+    </form>
