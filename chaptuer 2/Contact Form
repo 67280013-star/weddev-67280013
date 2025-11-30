@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Form</title>
+<style>
+body{max-width:700px;margin:24px auto;padding:0 16px;font-family:system-ui}
+form{background:#fff;padding:16px;border-radius:8px;border:1px solid #eee}
+label{display:block;margin:6px 0 4px;font-weight:600}
+input,textarea,select{width:100%;padding:8px;border:1px solid #ccc;border-radius:6px}
+input[type=submit]{margin-top:10px;background:#0077cc;color:#fff;border:0;padding:10px 16px;border-radius:8px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>Contact Form</h1>
+
+
+<form action="#" method="post" novalidate>
+<label for="name">ชื่อ-สกุล</label>
+<input type="text" id="name" name="name" required>
+
+
+<label for="email">อีเมล</label>
+<input type="email" id="email" name="email" required>
+
+
+<label for="topic">หัวข้อ</label>
+<select id="topic" name="topic" required>
+<option value="">-- เลือกหัวข้อ --</option>
+<option value="question">สอบถาม</option>
+<option value="feedback">แสดงความคิดเห็น</option>
+<option value="bug">รายงานบั๊ก</option>
+</select>
+
+
+<label for="message">ข้อความ</label>
+<textarea id="message" name="message" rows="6" required></textarea>
+
+
+<label><input type="checkbox" name="subscribe" value="yes"> ต้องการรับข่าวสาร</label>
+
+
+<input type="submit" value="ส่งข้อความ">
+</form>
+</body>
+</html>
