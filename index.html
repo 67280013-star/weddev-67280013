@@ -1,38 +1,47 @@
-DOCTYPE
-    html>   
+<!doctype html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ทดสอบการเล่นไฟล์</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Form</title>
+<style>
+body{max-width:700px;margin:24px auto;padding:0 16px;font-family:system-ui}
+form{background:#fff;padding:16px;border-radius:8px;border:1px solid #eee}
+label{display:block;margin:6px 0 4px;font-weight:600}
+input,textarea,select{width:100%;padding:8px;border:1px solid #ccc;border-radius:6px}
+input[type=submit]{margin-top:10px;background:#0077cc;color:#fff;border:0;padding:10px 16px;border-radius:8px;cursor:pointer}
+</style>
 </head>
 <body>
-    <h1>ทดสอบการเล่นไฟล์มีเดีย</h1>
-<div>
-    <!-- รูปแบบพื้นฐาน -->
-    <video width="640" height="360" controls>
-      <source src="hwchapter3/exsaple 01.html/media/306155_small.mp4" type="video/mp4">
-      <source src="video.webm" type="video/webm">
-      เบราว์เซอร์ของนักศึกษาไม่รองรับการเล่นวิดีโอ
-    </video>
-</div>
-<br><br>
-    <audio controls>
-      <source src="hwchapter3/exsaple 01.html/media/hype-drill-music-438398.mp3" type="audio/mpeg">
-      <source src="music.ogg" type="audio/ogg">
-      เบราว์เซอร์ของนักศึกษาไม่รองรับการเล่นเสียง
-    </audio>
+<h1>Contact Form</h1>
 
-    <div>
-   <!-- ✅ ดี ให้ Browser เลือกรูปที่เหมาะสม -->
-<img 
-  src="hwchapter3/exsaple 01.html/media/modelling-9764984_1920.jpg"                    <!-- รูปสำรอง -->
-  srcset="image-400.jpg 400w,            <!-- รูปขนาด 400px -->
-          image-800.jpg 800w,            <!-- รูปขนาด 800px -->
-          image-1200.jpg 1200w"          <!-- รูปขนาด 1200px -->
-  sizes="(max-width 600px) 400px,       <!-- มือถือใช้ 400px -->
-         (max-width 900px) 800px,       <!-- Tablet ใช้ 800px -->
-         1200px"                         <!-- Desktop ใช้ 1200px -->
-  alt="คนโพสท่าในภาพแฟชั่นยืนกลางแสงธรรมชาติ ฉากหลังเบลอเป็นภูมิทัศน์กลางแจ้ง โทนอารมณ์สงบ">
 
-    </div>
+<form action="#" method="post" novalidate>
+<label for="name">ชื่อ-สกุล</label>
+<input type="text" id="name" name="name" required>
+
+
+<label for="email">อีเมล</label>
+<input type="email" id="email" name="email" required>
+
+
+<label for="topic">หัวข้อ</label>
+<select id="topic" name="topic" required>
+<option value="">-- เลือกหัวข้อ --</option>
+<option value="question">สอบถาม</option>
+<option value="feedback">แสดงความคิดเห็น</option>
+<option value="bug">รายงานบั๊ก</option>
+</select>
+
+
+<label for="message">ข้อความ</label>
+<textarea id="message" name="message" rows="6" required></textarea>
+
+
+<label><input type="checkbox" name="subscribe" value="yes"> ต้องการรับข่าวสาร</label>
+
+
+<input type="submit" value="ส่งข้อความ">
+</form>
+</body>
+</html>

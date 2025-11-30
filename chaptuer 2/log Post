@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog Post</title>
+<style>
+body{max-width:900px;margin:24px auto;padding:0 16px;font-family:system-ui}
+header,footer,nav,article,aside,main,section{display:block}
+nav ul{list-style:none;padding:0;display:flex;gap:12px}
+img{max-width:100%;border-radius:6px}
+.container{display:grid;grid-template-columns:1fr 300px;gap:20px}
+@media(max-width:820px){.container{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>Blog Post</h1>
+<nav>
+<ul>
+<li><a href="#article">บทความ</a></li>
+<li><a href="#about">เกี่ยวกับ</a></li>
+</ul>
+</nav>
+</header>
+
+
+<main>
+<section id="article">
+<div class="container">
+<article>
+<header>
+<h2>การใช้ HTML5 Semantic Elements</h2>
+</header>
+<figure>
+<img src="https://via.placeholder.com/900x350.png?text=Blog+Image" alt="Blog image">
+</figure>
+<p>เนื้อหาบทความ ...</p>
+</article>
+
+
+<aside id="about">
+<h3>เกี่ยวกับผู้เขียน</h3>
+<p>ข้อมูลผู้เขียน ...</p>
+</aside>
+</div>
+</section>
+</main>
+
+
+<footer>
+<p>© 2025 ตัวอย่าง Blog</p>
+</footer>
+</body>
+</html>
