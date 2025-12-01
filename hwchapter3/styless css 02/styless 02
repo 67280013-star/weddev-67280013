@@ -1,0 +1,11 @@
+ body {
+                background-color: rgb(113, 150, 12);
+            }
+
+            h1 {
+                color: blue;
+            }
+
+            p {
+                color: red;
+            }
