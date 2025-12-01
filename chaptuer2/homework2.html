@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>การ์ดสูตร: ผัดมาม่า</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#ffffff; --accent:#ff6b6b; --muted:#6b7280; --glass: rgba(255,255,255,0.7);
+      --shadow: 0 6px 18px rgba(15,23,42,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Kanit',system-ui,Segoe UI,Roboto,Helvetica,Arial; background:linear-gradient(180deg,#fbfdff 0%, #f3f5fb 100%); color:#111827; display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+
+    .wrapper{max-width:980px; width:100%; display:grid; grid-template-columns:1fr 380px; gap:24px; align-items:start}
+    @media (max-width:880px){ .wrapper{grid-template-columns:1fr; padding-bottom:40px} }
+
+    .card{background:var(--card); border-radius:14px; box-shadow:var(--shadow); padding:22px}
+
+    /* left: recipe */
+    .recipe{padding:18px}
+    .hero{display:flex; gap:18px; align-items:center}
+    .hero .thumb{width:160px; height:120px; border-radius:10px; overflow:hidden; flex-shrink:0; background:linear-gradient(135deg,#fff 0%, #f7f7f9 100%); display:flex; align-items:center; justify-content:center}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+    h1{font-size:20px; margin:0 0 4px 0}
+    .meta{color:var(--muted); font-size:13px}
+
+    .tags{margin-top:12px; display:flex; gap:8px; flex-wrap:wrap}
+    .tag{background:var(--glass); padding:6px 10px; border-radius:999px; font-weight:600; font-size:13px}
+
+    .section{margin-top:18px}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+
+    ul.ingredients{list-style:none; padding:0; margin:0}
+    ul.ingredients li{padding:8px 0; border-bottom:1px dashed #f1f3f5; display:flex; justify-content:space-between}
+    .qty{color:var(--muted)}
+
+    ol.steps{padding-left:18px}
+    ol.steps li{margin-bottom:10px}
+
+    /* right: card controls */
+    .info-card{padding:18px; display:flex; flex-direction:column; gap:12px}
+    .row{display:flex; justify-content:space-between; align-items:center}
+    .servings-control{display:flex; gap:8px; align-items:center}
+    .btn{border:0; background:var(--accent); color:white; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600}
+    .btn.secondary{background:transparent; color:var(--accent); border:1px solid #ffd1d1}
+
+    .timer{display:flex; gap:8px; align-items:center}
+    .timer input[type=number]{width:70px; padding:8px; border-radius:8px; border:1px solid #e6e9ef}
+
+    .notes{font-size:13px; color:var(--muted)}
+
+    .print-btn{margin-top:8px}
+
+    footer.attribution{margin-top:12px; font-size:12px; color:var(--muted)}
+
+    /* small helpers */
+    .chip{background:#fff5f5; color:var(--accent); padding:6px 8px; border-radius:8px; font-weight:600}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card recipe" id="recipeCard">
+      <div class="hero">
+        <div class="thumb"><img src="https://images.unsplash.com/photo-1604908177522-5ad18f3f39b0?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="ผัดมาม่า"></div>
+        <div>
+          <h1>ผัดมาม่า (สูตรง่าย ไม่ง้อร้าน)</h1>
+          <div class="meta">เวลาเตรียม 5 นาที • เวลาทำ 10 นาที • เสิร์ฟสำหรับ <span id="servingsText">1</span> คน</div>
+          <div class="tags">
+            <span class="tag">มื้อด่วน</span>
+            <span class="tag">สูตรไทย</span>
+            <span class="tag">เครื่องปรุงตามชอบ</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section grid-2">
+        <div class="card" style="padding:14px">
+          <h3 style="margin:0 0 8px 0">วัตถุดิบ</h3>
+          <ul class="ingredients" id="ingredientsList">
+            <li><span>บะหมี่กึ่งสำเร็จรูป</span><span class="qty">1 ห่อ</span></li>
+            <li><spanน้ำมันพืช (สำหรับผัด)</span><span class="qty">1-2 ช้อนโต๊ะ</span></li>
+            <li><span>กระเทียมสับ</span><span class="qty">1-2 กลีบ</span></li>
+            <li><span>ผัก (คะน้า/กะหล่ำ/ต้นหอม)</span><span class="qty">ตามชอบ</span></li>
+            <li><span>ไข่ (ถ้าชอบ)</span><span class="qty">1 ฟอง</span></li>
+            <li><span>ซอสปรุงรส/ซอสถุงมาม่า</span><span class="qty">ตามชอบ</span></li>
+          </ul>
+        </div>
+
+        <div class="card info-card">
+          <div class="row"><strong>ปรับจำนวนเสิร์ฟ</strong>
+            <div class="servings-control">
+              <button class="btn secondary" id="decr">−</button>
+              <div id="servings">1</div>
+              <button class="btn" id="incr">+</button>
+            </div>
+          </div>
+
+          <div class="row"><div><strong>เวลาทำ (นาที)</strong><div class="notes">ประมาณการ</div></div>
+            <div class="chip">10</div>
+          </div>
+
+          <div class="row">
+            <div>
+              <strong>ตัวจับเวลา</strong>
+              <div class="timer">
+                <input type="number" id="timerInput" min="1" value="5"> นาที
+                <button class="btn" id="startTimer">เริ่ม</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <strong>ปุ่ม</strong>
+              <div style="display:flex; gap:8px; margin-top:8px">
+                <button class="btn" id="print">พิมพ์/บันทึกเป็น PDF</button>
+                <button class="btn secondary" id="copyLink">คัดลอกสูตร</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <strong>หมายเหตุ</strong>
+              <div class="notes">ปรับเครื่องปรุงได้ตามชอบ เช่น เพิ่มพริก น้ำปลา หรือซีอิ๊ว</div>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>วิธีทำ</h3>
+        <ol class="steps">
+          <li>ต้มบะหมี่ให้พอสุกแล้วสะเด็ดน้ำ (หรือแค่เทน้ำร้อนลวกตามชอบ) เก็บซอสที่ให้มาไว้</li>
+          <li>ตั้งกระทะ ใส่น้ำมัน พอกระทะร้อน ใส่กระเทียมสับลงผัดจนหอม</li>
+          <li>ใส่ผักที่เตรียมไว้ ผัดจนสุกตามต้องการ</li>
+          <li>ใส่บะหมี่ลงไป ผัดให้เข้ากันแล้วเติมซอส ปรุงรสเพิ่มเติมตามชอบ</li>
+          <li>ถ้าชอบ ใส่ไข่ลงไปผัดรวมจนสุก ปรับรสอีกครั้ง ตักเสิร์ฟร้อน ๆ</li>
+        </ol>
+      </div>
+
+    </div>
+
+    <!-- right column: printable card preview -->
+    <div class="card" style="height:100%">
+      <div style="padding:18px">
+        <h3 style="margin-top:0">ตัวอย่างการ์ด (พิมพ์ได้)</h3>
+        <div id="printPreview" style="background:linear-gradient(180deg,#fff,#fff); padding:12px; border-radius:10px">
+          <h2 style="margin:4px 0">ผัดมาม่า</h2>
+          <div style="font-size:13px; color:var(--muted); margin-bottom:8px">เสิร์ฟ: <span id="previewServings">1</span> คน • เวลาทำ: 10 นาที</div>
+          <strong>วัตถุดิบ</strong>
+          <ul style="margin-top:6px">
+            <li>บะหมี่กึ่งสำเร็จรูป 1 ห่อ</li>
+            <li>น้ำมัน 1-2 ช้อนโต๊ะ</li>
+            <li>กระเทียม 1-2 กลีบ</li>
+            <li>ผักตามชอบ</li>
+            <li>ไข่ (ถ้าชอบ) 1 ฟอง</li>
+          </ul>
+        </div>
+       
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // servings logic
+    const incr = document.getElementById('incr');
+    const decr = document.getElementById('decr');
+    const servings = document.getElementById('servings');
+    const servingsText = document.getElementById('servingsText');
+    const previewServings = document.getElementById('previewServings');
+
+    function updateServings(n){
+      servings.textContent = n;
+      servingsText.textContent = n;
+      previewServings.textContent = n;
+      // optional: scale ingredient quantities visually (simple example)
+      // If you want dynamic metric scaling, expand this section.
+    }
+
+    let current = 1;
+    incr.addEventListener('click', ()=>{ current++; updateServings(current); });
+    decr.addEventListener('click', ()=>{ if(current>1) current--; updateServings(current); });
+
+    // print
+    document.getElementById('print').addEventListener('click', ()=>{
+      window.print();
+    });
+
+    // copy link (copies a text recipe)
+    document.getElementById('copyLink').addEventListener('click', async ()=>{
+      const text = `ผัดมาม่า - เสิร์ฟ ${current} คน\n\nวัตถุดิบ:\n- บะหมี่ ${current} ห่อ\n- น้ำมัน 1-2 ช้อนโต๊ะ\n- กระเทียม 1-2 กลีบ\n- ผักตามชอบ\n\nวิธีทำ:\n1. ต้ม/ลวกบะหมี่\n2. ผัดกระเทียมและผัก\3. ใส่บะหมี่ ผสมซอส ปรุงรส\n4. ใส่ไข่ (ถ้าชอบ)\n`;
+      try{ await navigator.clipboard.writeText(text); alert('คัดลอกสูตรแล้ว!'); }
+      catch(e){ prompt('คัดลอกด้วยวิธีแมนนวล (กด Ctrl+C):', text); }
+    });
+
+    // timer
+    const timerInput = document.getElementById('timerInput');
+    const startTimer = document.getElementById('startTimer');
+    let timerInterval = null;
+    startTimer.addEventListener('click', ()=>{
+      if(timerInterval){ clearInterval(timerInterval); timerInterval=null; startTimer.textContent='เริ่ม'; return; }
+      let mins = parseInt(timerInput.value)||1; let sec = mins*60;
+      startTimer.textContent = 'หยุด';
+      timerInterval = setInterval(()=>{
+        if(sec<=0){ clearInterval(timerInterval); timerInterval=null; startTimer.textContent='เริ่ม'; alert('เวลาเสร็จแล้ว!'); return; }
+        sec--;
+        const m = Math.floor(sec/60); const s = sec%60;
+        startTimer.textContent = `${m} : ${s.toString().padStart(2,'0')}`;
+      },1000);
+    });
+
+    // initial
+    updateServings(current);
+  </script>
+</body>
+</html>
