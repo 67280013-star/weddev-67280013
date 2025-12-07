@@ -1,194 +1,215 @@
 <!doctype html>
 <html lang="th">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>เที่ยวปทุมธานี — คู่มือท่องเที่ยว</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile Card — Example</title>
   <style>
-    :root{--bg:#f8fafc; --card:#ffffff; --accent:#0ea5a4; --muted:#6b7280}
+    :root{
+      --card-bg: #ffffff;
+      --accent: #6b8cff; /* primary accent */
+      --muted: #6b7280;
+      --glass: rgba(107,140,255,0.08);
+      --radius: 14px;
+      --shadow: 0 6px 22px rgba(16,24,40,0.08);
+      --accent-2: #8dd3ff;
+      --text: #0f172a;
+      --card-width: 360px;
+      --gap: 14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
     *{box-sizing:border-box}
-    body{font-family:'Kanit',sans-serif; margin:0; background:var(--bg); color:#0f172a}
-    header{background:linear-gradient(90deg,#06b6d4, #0ea5a4); color:white; padding:28px 18px}
-    .container{max-width:1100px; margin:20px auto; padding:0 16px}
-    .brand{display:flex; gap:12px; align-items:center}
-    .brand h1{margin:0; font-size:20px}
-    nav{margin-top:12px}
-    nav a{color:rgba(255,255,255,0.95); margin-right:12px; text-decoration:none; font-weight:600}
+    html,body{height:100%}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+      background: linear-gradient(180deg,#f7f9ff 0%, #fbfcff 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-    .hero{display:grid; grid-template-columns:1fr 360px; gap:18px; align-items:center; margin-top:18px}
-    .hero .intro{background:rgba(255,255,255,0.08); padding:18px; border-radius:12px}
-    .card{background:var(--card); border-radius:12px; padding:16px; box-shadow:0 8px 30px rgba(2,6,23,0.06)}
+    /* Card container */
+    .profile-card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      display:grid;
+      grid-template-columns:72px 1fr;
+      gap:var(--gap);
+      align-items:center;
+      transition:transform .18s ease, box-shadow .18s ease;
+      border:1px solid rgba(15,23,42,0.04);
+    }
 
-    .attractions{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px}
-    @media (max-width:980px){ .hero{grid-template-columns:1fr} .attractions{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .attractions{grid-template-columns:1fr} }
+    .profile-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 40px rgba(11,22,70,0.12);
+    }
 
-    .attraction img{width:100%; height:160px; object-fit:cover; border-radius:8px}
-    .attraction h3{margin:8px 0 4px}
-    .muted{color:var(--muted)}
+    .avatar{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      overflow:hidden;
+      display:inline-block;
+      flex-shrink:0;
+      border:3px solid var(--glass);
+      background:linear-gradient(135deg,var(--accent-2),var(--accent));
+      display:grid;
+      place-items:center;
+      font-weight:700;
+      color:white;
+      font-size:20px;
+      box-shadow:0 6px 18px rgba(107,140,255,0.12) inset;
+    }
 
-    .gallery{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
-    .gallery img{width:100%; height:120px; object-fit:cover; border-radius:8px}
+    .meta{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
 
-    footer{margin:28px 0; text-align:center; color:var(--muted)}
+    .meta .row{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      justify-content:space-between;
+    }
 
-    .search{display:flex; gap:8px}
-    .search input{flex:1; padding:10px 12px; border-radius:8px; border:1px solid #e6eef0}
-    .btn{background:var(--accent); color:white; border:0; padding:10px 12px; border-radius:8px; cursor:pointer}
+    .name{
+      font-size:1.05rem;
+      font-weight:700;
+      line-height:1;
+    }
+    .handle{color:var(--muted); font-size:0.9rem}
+    .bio{color:var(--muted); font-size:0.95rem; margin-top:6px}
 
-    /* simple map placeholder */
-    .map{height:300px; border-radius:8px; overflow:hidden}
-    .flex-row{display:flex; gap:16px}
+    /* actions */
+    .actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    .btn{
+      appearance:none;
+      border:0;
+      outline:0;
+      font-weight:600;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      background:transparent;
+      transition:all .14s ease;
+    }
+    .btn:focus{box-shadow:0 0 0 4px rgba(107,140,255,0.14)}
 
+    .btn-follow{
+      background:linear-gradient(90deg,var(--accent),#5aa0ff);
+      color:white;
+      border-radius:10px;
+      padding:8px 14px;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      box-shadow:0 6px 18px rgba(107,140,255,0.18);
+    }
+
+    .btn-message{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid rgba(107,140,255,0.14);
+    }
+
+    /* stats */
+    .stats{
+      display:flex;
+      gap:12px;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:0.88rem;
+    }
+    .stat{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      align-items:flex-start;
+    }
+    .stat strong{font-weight:700; color:var(--text)}
+
+    /* responsive */
+    @media (max-width:420px){
+      .profile-card{grid-template-columns:64px 1fr; padding:14px}
+      .avatar{width:64px;height:64px}
+    }
+
+    /* utility for small badges */
+    .badge{
+      background:linear-gradient(90deg, rgba(107,140,255,0.12), rgba(141,211,255,0.08));
+      padding:6px 8px;
+      border-radius:999px;
+      font-size:0.8rem;
+      color:var(--muted);
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="brand">
-        <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?q=80&w=80&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="logo" style="width:56px;height:56px;border-radius:8px;object-fit:cover">
+  <!-- ตัวอย่าง Profile Card (แก้ข้อมูลใน HTML ได้ทันที) -->
+  <article class="profile-card" aria-label="Profile card of Jessada">
+    <div class="avatar" role="img" aria-label="Avatar of Jessada">J</div>
+
+    <div class="meta">
+      <div class="row">
         <div>
-          <h1>เที่ยวปทุมธานี</h1>
-          <div class="muted">คู่มือสถานที่ท่องเที่ยว แผนที่ และกิจกรรม</div>
+          <div class="name">สุภัทรชัย เกิดสูง</div>
+          <div class="handle">@mondkung</div>
+        </div>
+
+        <div class="actions" aria-hidden="false">
+          <button class="btn btn-follow" id="followBtn" aria-pressed="false">ติดตาม</button>
+          <button class="btn btn-message">ข้อความ</button>
         </div>
       </div>
-      <nav>
-        <a href="#highlights">ไฮไลต์</a>
-        <a href="#markets">ตลาด</a>
-        <a href="#temples">วัด</a>
-        <a href="#map">แผนที่</a>
-        <a href="#contact">ติดต่อ</a>
-      </nav>
+
+      <p class="bio">นักออกแบบและนักพัฒนาเว็บ — สนใจ UX, micro-interactions และ CSS ที่อ่านง่าย</p>
+
+      <div class="stats">
+        <div class="stat"><strong>1.2k</strong><span>ผู้ติดตาม</span></div>
+        <div class="stat"><strong>380</strong><span>คนที่ติดตาม</span></div>
+        <div class="stat"><strong>85</strong><span>ผลงาน</span></div>
+      </div>
     </div>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <div class="intro card">
-        <h2 id="leadTitle">ยินดีต้อนรับสู่จังหวัดปทุมธานี</h2>
-        <p class="muted">ปทุมธานีเป็นจังหวัดทางตอนเหนือของกรุงเทพฯ มีสวนสนุก พิพิธภัณฑ์ ตลาดน้ำ และวัดที่น่าสนใจ เหมาะกับทริปครอบครัวหรือวันหยุดสั้น ๆ</p>
-
-        <div style="margin-top:12px" class="card">
-          <div class="search">
-            <input id="searchInput" placeholder="ค้นหาสถานที่ เช่น Dream World หรือ ตลาด...">
-            <button class="btn" id="searchBtn">ค้นหา</button>
-          </div>
-        </div>
-
-        <div style="margin-top:12px" id="searchResults"></div>
-      </div>
-
-      <aside class="card">
-        <h3>ไฮไลต์ที่แนะนำ</h3>
-        <ul style="padding-left:18px">
-          <li><strong>Dream World</strong> — สวนสนุกขนาดใหญ่ เหมาะสำหรับเด็กและครอบครัว</li>
-          <li><strong>วัดพระธรรมกาย</strong> — วัดขนาดใหญ่มีสถาปัตยกรรมโดดเด่น</li>
-          <li><strong>ตลาดน้ำ/รังสิต</strong> — ลองชิมอาหารพื้นบ้านและของฝาก</li>
-        </ul>
-        <div style="margin-top:12px"><strong>เวลาแนะนำ:</strong> ไปเช้า-เย็นกลับ หรือค้างคืนที่จังหวัดใกล้เคียง</div>
-      </aside>
-    </section>
-
-    <section id="highlights">
-      <h2>สถานที่ท่องเที่ยวยอดนิยม</h2>
-      <div class="attractions">
-        <div class="card attraction" data-title="Dream World">
-          <img src="https://images.unsplash.com/photo-1533743983669-94fa90eef2b6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Dream World">
-          <h3>Dream World</h3>
-          <p class="muted">สวนสนุกและเครื่องเล่นหลากหลาย เหมาะกับครอบครัวและเด็กๆ</p>
-        </div>
-
-        <div class="card attraction" data-title="Wat Phra Dhammakaya">
-          <img src="https://images.unsplash.com/photo-1581487187862-41d1b4b3d8d2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Wat Phra Dhammakaya">
-          <h3>วัดพระธรรมกาย</h3>
-          <p class="muted">วัดขนาดใหญ่ของคณะธรรมกาย จุดชมสถาปัตยกรรมและพิธีกรรมทางพุทธศาสนา</p>
-        </div>
-
-        <div class="card attraction" data-title="Rangsit Floating Market">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Floating Market">
-          <h3>ตลาดน้ำรังสิต</h3>
-          <p class="muted">ตลาดน้ำสไตล์ไทย อาหารท้องถิ่น และของฝาก</p>
-        </div>
-
-        <div class="card attraction" data-title="National Geological Museum">
-          <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Museum">
-          <h3>พิพิธภัณฑ์ธรณีวิทยา</h3>
-          <p class="muted">เรียนรู้เรื่องธรณีวิทยา ปฐพี และซากดึกดำบรรพ์</p>
-        </div>
-
-        <div class="card attraction" data-title="Wat Chedi Thong">
-          <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Wat Chedi Thong">
-          <h3>วัดเจดีย์ทอง</h3>
-          <p class="muted">วัดเก่าแก่ มีเจดีย์และสถาปัตยกรรมแบบโบราณ</p>
-        </div>
-
-        <div class="card attraction" data-title="Rahaeng Market">
-          <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Market">
-          <h3>ตลาดร้อยปีราฮัง</h3>
-          <p class="muted">ตลาดเก่าแก่ของท้องถิ่น เหมาะกับการเดินเล่นและหาของกิน</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="gallery" style="margin-top:18px">
-      <h2>ภาพรวม</h2>
-      <div class="gallery card" id="galleryGrid">
-        <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img1">
-        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img2">
-        <img src="https://images.unsplash.com/photo-1533743983669-94fa90eef2b6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img3">
-        <img src="https://images.unsplash.com/photo-1581487187862-41d1b4b3d8d2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="img4">
-      </div>
-    </section>
-
-    <section id="map" style="margin-top:18px">
-      <h2>แผนที่</h2>
-      <div class="card map">
-        <!-- แทนที่ด้วย iframe ของ Google Maps เมื่อพร้อม ตัวอย่าง:
-             <iframe src="YOUR_GOOGLE_MAPS_EMBED_URL" width="100%" height="100%" style="border:0" allowfullscreen="" loading="lazy"></iframe>
-        -->
-        <div style="display:flex; align-items:center; justify-content:center; height:100%; color:var(--muted)">แผนที่ (ฝัง Google Maps ได้จาก URL ที่ได้จาก Google Maps)</div>
-      </div>
-    </section>
-
-    <section id="contact" style="margin-top:18px">
-      <div class="card">
-        <h2>ติดต่อ / แหล่งข้อมูล</h2>
-        <p class="muted">เว็บไซต์นี้เป็นตัวอย่าง — หากต้องการข้อมูลอัพเดตเกี่ยวกับเวลาเปิด-ปิดหรือกิจกรรมพิเศษ กรุณาตรวจสอบเว็บไซต์ทางการของแต่ละสถานที่</p>
-        <ul>
-          <li>Dream World — สวนสนุก (Rangsit, ปทุมธานี)</li>
-          <li>Wat Phra Dhammakaya — วัดขนาดใหญ่ในอำเภอคลองหลวง</li>
-          <li>Rangsit Floating Market — ตลาดน้ำและแหล่งของกินท้องถิ่น</li>
-        </ul>
-      </div>
-    </section>
-
-    <footer>
-      <p class="muted">© 2025 เที่ยวปทุมธานี — ตัวอย่างเว็บไซต์ ส่วนภาพสามารถแก้ไขด้วยภาพจริงจากแหล่งข้อมูลของคุณ</p>
-    </footer>
-  </main>
+  </article>
 
   <script>
-    // simple search interaction
-    const attractions = Array.from(document.querySelectorAll('.attraction'));
-    document.getElementById('searchBtn').addEventListener('click', ()=>{
-      const q = document.getElementById('searchInput').value.trim().toLowerCase();
-      const results = attractions.filter(a => a.dataset.title.toLowerCase().includes(q));
-      const out = document.getElementById('searchResults');
-      out.innerHTML = '';
-      if(!q){ out.innerHTML = '<div class="muted">พิมพ์คำค้น เช่น "dream" หรือ "วัด" แล้วกดค้นหา</div>'; return; }
-      if(results.length===0){ out.innerHTML = '<div class="muted">ไม่พบสถานที่ที่ตรงกับคำค้น</div>'; return; }
-      results.forEach(r=>{
-        const t = r.querySelector('h3').textContent;
-        const p = r.querySelector('p').textContent;
-        const img = r.querySelector('img').src;
-        const div = document.createElement('div');
-        div.className='card';
-        div.style.marginTop='8px';
-        div.innerHTML = `<div style="display:flex; gap:10px"><img src="${img}" style="width:110px;height:80px;object-fit:cover;border-radius:8px"><div><h3 style="margin:0">${t}</h3><div class=\"muted\">${p}</div></div></div>`;
-        out.appendChild(div);
+    // เล็กน้อย: toggle ปุ่มติดตาม
+    (function(){
+      const btn = document.getElementById('followBtn');
+      btn.addEventListener('click', ()=>{
+        const pressed = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', String(!pressed));
+        btn.textContent = pressed ? 'ติดตาม' : 'กำลังติดตาม';
+        // เปลี่ยนสไตล์เมื่อกำลังติดตาม
+        if(!pressed){
+          btn.style.background = 'linear-gradient(90deg,#e0e6ff,#c9d9ff)';
+          btn.style.color = '#0f172a';
+          btn.style.boxShadow = '0 6px 14px rgba(11,22,70,0.06)';
+        } else {
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.boxShadow = '';
+        }
       });
-    });
+    })();
   </script>
 </body>
 </html>
