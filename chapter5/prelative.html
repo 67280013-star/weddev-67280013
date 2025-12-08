@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Position: Relative</title>
+    <style>
+        .container { border: 1px dashed gray; padding: 20px; }
+        .car-card {
+            width: 250px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border: 2px solid #2196f3;
+            margin-bottom: 10px;
+        }
+        .move-car {
+            position: relative;
+            top: 30px;  /* เลื่อนลงมาจากจุดเดิม 30px */
+            left: 50px; /* เลื่อนจากซ้ายมา 50px */
+            background-color: #bbdefb;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relative Position</h1>
+    <div class="container">
+        <div class="car-card">รถคันที่ 1 (Static)</div>
+        
+        <div class="car-card move-car">
+            <strong>Tesla Model 3</strong><br>
+            คันนี้เลื่อนจากตำแหน่งเดิม (Relative)
+        </div>
+        
+        <div class="car-card">รถคันที่ 3 (Static)</div>
+    </div>
+    <p>สังเกตว่ารถคันที่ 3 จะไม่ขยับขึ้นมาแทนที่ว่างของรถคันที่ 2</p>
+</body>
+</html>
+
+            <h3>รถคันที่ 3</h3>
+            <p><strong>ประเภท:</strong> SUV</p>
+            <p><strong>ตำแหน่ง:</strong> Static</p>
+        </div>
+    </div>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Position: Fixed</title>
+    <style>
+        body { height: 2000px; /* เพิ่มพื้นที่เพื่อให้เลื่อนเมาส์ได้ */ }
+        
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 60px;
+            background-color: orange;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fixed Position Example</h1>
+    <p>ลอง Scroll เมาส์ลงไปดูด้านล่าง...</p>
+    
+    <div style="margin-top: 100px;">
+        <h2>รายการรถยนต์ขายดี</h2>
+        <ul>
+            <li>BMW M4</li>
+            <li>Audi R8</li>
+            <li>Nissan GT-R</li>
+        </ul>
+    </div>
+
+    <a href="#" class="chat-button">ติดต่อเราด่วน รถพิเศษพร้อมจัดส่ง</a>
+</body>
+
+
+
+

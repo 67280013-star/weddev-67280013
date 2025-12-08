@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Position: Static</title>
+    <style>
+        .car-card {
+            width: 300px;
+            padding: 20px;
+            margin: 10px;
+            background-color: #f0f0f0;
+            border: 2px solid #333;
+            /* position: static; คือค่าเริ่มต้น ไม่ต้องเขียนก็ได้ */
+        }
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Static Position (Default)</h1>
+    <p>กล่องรถยนต์เหล่านี้จะเรียงต่อกันตามปกติ ไม่สามารถใช้ top, left ปรับตำแหน่งได้</p>
+    
+    <div class="car-card">
+        <h2>Toyota Camry</h2>
+        <p>ประเภท: Sedan</p>
+    </div>
+    
+    <div class="car-card highlight">
+        <h2>Honda Civic</h2>
+        <p>ตำแหน่งปกติ (Static) จะอยู่ต่อจากคันบนเสมอ</p>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Position: Relative</title>
+    <link rel="stylesheet" href="relative.css">
+</head>
+<body>
+
+    <header>
+        <h1>ตำแหน่งรถยนต์: Relative (เลื่อนจากเดิม)</h1>
+        <p>รถคันที่ 2 ถูกเลื่อนจากตำแหน่งเดิม <strong>30px</strong> ลงล่าง และ <strong>50px</strong> ขวา</p>
+    </header>
+
+    <div class="car-container">
+        <div class="car-box relative-1">
+            <h3>รถคันที่ 1</h3>
+            <p><strong>ประเภท:</strong> Truck</p>
+            <p><strong>ตำแหน่ง:</strong> Static</p>
+        </div>
+        
+        <div class="car-box relative-2">
+            <h3>รถคันที่ 2</h3>
+            <p><strong>ประเภท:</strong> Convertible</p>
+            <p><strong>ตำแหน่ง:</strong> Relative (เลื่อน)</p>
+        </div>
+        
+        <div class="car-box relative-3">
+            <h3>รถคันที่ 3</h3>
+            <p><strong>ประเภท:</strong> Minivan</p>
+            <p><strong>ตำแหน่ง:</strong> Static</p>
+        </div>
+    </div>
+
+    <div class="slider-example">
+        <h2>ทดสอบการปรับตำแหน่ง Relative</h2>
+        <p>เลื่อนจากซ้าย: <input type="range" min="-100" max="100" value="50" oninput="this.nextElementSibling.value=this.value; document.getElementById('relative-car').style.left = this.value + 'px'">
+        <output>50</output>px</p>
+        
+        <div class="car-slider-base">
+            <div class="car-box car-slider" id="relative-car">
+                <h4>รถทดลองเลื่อน</h4>
+                <p>เลื่อนด้วย Relative</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // (ส่วนนี้ไม่มี JS สำหรับ Interactive แต่เพิ่มเพื่อให้ range input แสดงผลค่าที่เลือก)
+    </script>
+
+</body>
+</html>
+
+
+
+
