@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Showroom Layout Example</title>
+    
+    <!-- นำเข้า Google Fonts: Kanit และ Krub -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Krub:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Global Reset & Variables --- */
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --text-light: #666;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* ใช้ฟอนต์ Krub สำหรับเนื้อหาทั่วไป */
+            font-family: 'Krub', sans-serif;
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, .btn {
+            /* ใช้ฟอนต์ Kanit สำหรับหัวข้อและปุ่ม */
+            font-family: 'Kanit', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-weight: 600;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-weight: 300;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* --- Container & Flexbox Layout (ส่วนสำคัญสำหรับการสอน) --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* .car-grid เป็น Flex Container */
+        .car-grid {
+            display: flex; /* เปิดใช้งาน Flexbox */
+            flex-wrap: wrap; /* ให้ข้อมูลปัดลงบรรทัดใหม่ถ้ายาวเกิน */
+            gap: 25px; /* ระยะห่างระหว่าง Flex Items */
+            justify-content: center; /* จัดกึ่งกลางแนวนอน */
+        }
+
+        /* --- Card Design & Position (ส่วนสำคัญสำหรับการสอน) --- */
+        .car-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            
+            /* กำหนดขนาดด้วย Flex Basis */
+            /* grow=0, shrink=1, basis=260px (ขนาดเริ่มต้น) */
+            flex: 0 1 260px; 
+            
+            /* เทคนิค Position: ตั้งค่าแม่เป็น relative เพื่อให้ลูกที่เป็น absolute อ้างอิงจากกล่องนี้ */
+            position: relative; 
+            
+            display: flex;
+            flex-direction: column; /* จัดเนื้อหาในการ์ดเป็นแนวตั้ง */
+        }
+
+        /* Responsive: ขยายเต็มถ้าหน้าจอเล็กกว่ากำหนด */
+        @media (max-width: 600px) {
+            .car-card {
+                flex: 1 1 100%;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 900px) {
+            .car-card {
+                flex: 0 1 45%; /* แสดง 2 การ์ดต่อแถว */
+            }
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px); /* เลื่อนขึ้นเล็กน้อยเมื่อชี้ */
+        }
+
+        /* --- Badge Style (Demonstrating Position Absolute) --- */
+        .badge {
+            /* เทคนิค Position: ตั้งค่าลูกเป็น absolute */
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 10; /* ให้ลอยอยู่เหนือรูปภาพ */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .badge.sale { background-color: #e63946; }
+        .badge.new { background-color: #2a9d8f; }
+        .badge.popular { background-color: #e9c46a; color: #333; }
+
+        /* --- Image Styling --- */
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover; /* ให้ภาพเต็มพื้นที่โดยไม่เสียสัดส่วน */
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- Content Styling --- */
+        .card-content {
+            padding: 20px;
+            flex-grow: 1; /* ดัน Footer ลงล่างสุดเสมอ */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .car-title {
+            font-size: 1.25rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .car-type {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .specs {
+            display: flex; /* Flexbox ซ้อน Flexbox */
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* --- Footer & Price --- */
+        .card-footer {
+            margin-top: auto; /* เทคนิค Flexbox: ดันส่วนนี้ไปล่างสุดของ container พ่อ */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
+        }
+
+        .price {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #14213d;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>SUPER CAR SHOWROOM</h1>
+        <p>ตัวอย่างการจัด Layout ด้วย CSS Flexbox และ Position</p>
+    </header>
+
+    <div class="container">
+        <!-- Flex Container หลัก -->
+        <div class="car-grid">
+
+            <!-- Card 1 -->
+            <div class="car-card">
+                <!-- Absolute Position Element -->
+                <span class="badge new">เข้าใหม่</span>
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=500&q=80" alt="Car 1" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Neon Cyber GT</h3>
+                    <p class="car-type">Sport Coupe</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 450 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿3,590,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="car-card">
+                <span class="badge sale">ลดราคา</span>
+                <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&w=500&q=80" alt="Car 2" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Horizon S-Class</h3>
+                    <p class="car-type">Luxury Sedan</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 300 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿2,800,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=500&q=80" alt="Car 3" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Mustang Classic</h3>
+                    <p class="car-type">Muscle Car</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 500 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Manual</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿4,200,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="car-card">
+                <span class="badge popular">ยอดนิยม</span>
+                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=500&q=80" alt="Car 4" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Ferrari Red</h3>
+                    <p class="car-type">Supercar</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 720 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿25,000,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=500&q=80" alt="Car 5" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Eco Blue EV</h3>
+                    <p class="car-type">Electric Vehicle</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 100% EV</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿990,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="car-card">
+                <span class="badge new">New</span>
+                <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=500&q=80" alt="Car 6" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Night Racer</h3>
+                    <p class="car-type">Sport Sedan</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 400 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿5,500,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="car-card">
+                <img src="https://images.unsplash.com/photo-1506610654-064fbba4780c?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Car 7" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">Urban X</h3>
+                    <p class="car-type">Compact SUV</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 180 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Auto</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿1,200,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="car-card">
+                <span class="badge sale">Final Call</span>
+                <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=500&q=80" alt="Car 8" class="card-image">
+                <div class="card-content">
+                    <h3 class="car-title">White Beast</h3>
+                    <p class="car-type">Pickup Truck</p>
+                    <div class="specs">
+                        <div class="spec-item"><span>⚡</span> 220 HP</div>
+                        <div class="spec-item"><span>⚙️</span> Manual</div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="price">฿850,000</span>
+                        <a href="#" class="btn">ดูรายละเอียด</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

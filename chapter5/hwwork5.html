@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบฝึกหัด Student Card ด้วย CSS Flexbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="student.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎓 ระบบข้อมูลนักศึกษา</h1>
+        <div class="students-grid">
+            <!-- Student Card 1 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">สมชาย ใจดี</h3>
+                    <p class="student-id">รหัส: 65010001</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">วิทยาศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">วิทยาการคอมพิวเตอร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">2</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.45</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 2 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">สุดา รักเรียน</h3>
+                    <p class="student-id">รหัส: 65010002</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">วิศวกรรมศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">วิศวกรรมซอฟต์แวร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">3</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.78</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 3 -->
+            <div class="student-card">
+                <span class="status-badge status-probation">วิทยาทัณฑ์</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Mike" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">วิชัย พยายาม</h3>
+                    <p class="student-id">รหัส: 65010003</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">บริหารธุรกิจ</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">การจัดการ</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">1</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">1.85</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 4 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emma" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">นภา ศรีสุข</h3>
+                    <p class="student-id">รหัส: 65010004</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">ศิลปศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">ภาษาอังกฤษ</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">4</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.92</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 5 -->
+            <div class="student-card">
+                <span class="status-badge status-dismissed">พ้นสภาพ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">ประสิทธิ์ เรียนน้อย</h3>
+                    <p class="student-id">รหัส: 65010005</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">วิทยาศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">คณิตศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">2</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">1.32</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 6 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">พิมพ์ชนก มั่นคง</h3>
+                    <p class="student-id">รหัส: 65010006</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">พยาบาลศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">การพยาบาล</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">3</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.67</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 7 -->
+            <div class="student-card">
+                <span class="status-badge status-probation">วิทยาทัณฑ์</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Tom" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">ธนา ต้องสู้</h3>
+                    <p class="student-id">รหัส: 65010007</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">วิทยาศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">ฟิสิกส์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">1</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">1.95</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 8 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Anna" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">อรอนงค์ เก่งกาจ</h3>
+                    <p class="student-id">รหัส: 65010008</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">สถาปัตยกรรมศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">สถาปัตยกรรมภายใน</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">2</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.56</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Card 9 -->
+            <div class="student-card">
+                <span class="status-badge status-normal">ปกติ</span>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Chris" alt="Student" class="card-image">
+                <div class="card-content">
+                    <h3 class="student-name">ชัยวัฒน์ วิริยะ</h3>
+                    <p class="student-id">รหัส: 65010009</p>
+
+                    <div class="info-row">
+                        <span class="info-label">คณะ:</span>
+                        <span class="info-value">วิศวกรรมศาสตร์</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">สาขา:</span>
+                        <span class="info-value">วิศวกรรมไฟฟ้า</span>
+                    </div>
+
+                    <div class="info-row">
+                        <span class="info-label">ชั้นปี:</span>
+                        <span class="info-value">4</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="gpa-display">
+                        <span class="gpa-value">3.21</span>
+                        <span class="gpa-text">GPA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
