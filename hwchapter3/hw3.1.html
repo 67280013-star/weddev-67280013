@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <h1>Media Gallery</h1>
+
+    <!-- วิดีโอ -->
+    <section>
+        <h2>🎬 วิดีโอ</h2>
+        <video controls width="100%">
+            <source src="https://videos.pexels.com/video-files/856912/856912-hd_1280_720_30fps.mp4" type="video/mp4">
+            เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+        </video>
+    </section>
+
+    <hr>
+
+    <!-- เสียง -->
+    <section>
+        <h2>🎧 เสียง</h2>
+        <audio controls>
+            <source src="https://cdn.freesound.org/previews/415/415209_5121236-lq.mp3" type="audio/mpeg">
+            เบราว์เซอร์ของคุณไม่รองรับเสียง
+        </audio>
+    </section>
+
+    <hr>
+
+    <!-- รูปภาพ Responsive -->
+    <section>
+        <h2>🖼️ รูปภาพ (Responsive)</h2>
+
+        <img 
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"
+            srcset="
+                https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400 400w,
+                https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800 800w,
+                https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200 1200w
+            "
+            sizes="(max-width: 600px) 90vw, 800px"
+            alt="ธรรมชาติ"
+            width="100%"
+        >
+
+        <br><br>
+
+        <img 
+            src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=600"
+            srcset="
+                https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=400 400w,
+                https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=800 800w,
+                https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=1200 1200w
+            "
+            sizes="(max-width: 600px) 90vw, 800px"
+            alt="ภูเขา"
+            width="100%"
+        >
+
+    </section>
+
+</body>
+</html>

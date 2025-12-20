@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design & Mobile-First Guide</title>
+    <style>
+        /* --- General Page Styles (ส่วนตกแต่งหลักของหน้าเว็บสอน) --- */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --bg-color: #f8fafc;
+            --text-color: #334155;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+        }
+
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        h1 { margin: 0; font-size: 2rem; }
+        h2 { color: var(--primary-color); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; margin-top: 2rem; }
+        h3 { color: var(--secondary-color); margin-top: 1.5rem; }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .note {
+            background-color: #e0f2fe;
+            border-left: 5px solid var(--primary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        /* --- Code Block Styles --- */
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            border: 1px solid #475569;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        code { font-family: inherit; }
+        
+        /* Syntax highlighting colors simulation */
+        .token-selector { color: #d7ba7d; }
+        .token-property { color: #9cdcfe; }
+        .token-value { color: #ce9178; }
+        .token-comment { color: #6a9955; }
+        .token-media { color: #c586c0; }
+        .token-bracket { color: #ffd700; }
+
+        /* --- LIVE DEMO STYLES (ส่วนที่เป็นตัวอย่าง Landing Page) --- */
+        /* เราจะใช้คลาส .demo-wrapper เพื่อไม่ให้กระทบกับส่วนอื่นๆ ของหน้า */
+        
+        .demo-preview {
+            border: 4px solid #333;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            margin-top: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-header {
+            background: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* --- CSS ที่ใช้สอนจริง (Mobile First) --- */
+        
+        /* 1. Base Styles (สำหรับมือถือเป็นหลัก) */
+        .lp-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .lp-hero {
+            background-color: #3b82f6; /* สีฟ้า */
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .lp-features {
+            display: flex;          /* เปิดใช้งาน Flexbox */
+            flex-direction: column; /* มือถือ: เรียงจากบนลงล่าง (Column) */
+            gap: 20px;             /* ระยะห่างระหว่างกล่อง */
+        }
+
+        .lp-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            /* มือถือ: ให้เต็มความกว้าง */
+            width: 100%; 
+            box-sizing: border-box; /* รวม padding ใน width */
+        }
+
+        .lp-card-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* 2. Tablet Size (หน้าจอมากกว่า 600px) */
+        @media (min-width: 600px) {
+            .lp-features {
+                flex-direction: row; /* Tablet: เปลี่ยนเป็นแนวนอน */
+                flex-wrap: wrap;     /* ยอมให้ปัดตกบรรทัดใหม่ได้ */
+            }
+
+            .lp-card {
+                /* Tablet: แบ่งเป็น 2 คอลัมน์ (50% ลบช่องว่าง gap นิดหน่อย) */
+                width: calc(50% - 10px); 
+            }
+            
+            /* เปลี่ยนสี Hero ให้เห็นความต่าง */
+            .lp-hero {
+                background-color: #6366f1; /* สีม่วง */
+            }
+        }
+
+        /* 3. Desktop Size (หน้าจอมากกว่า 900px) */
+        @media (min-width: 900px) {
+            .lp-card {
+                /* Desktop: แบ่งเป็น 3 คอลัมน์ (33.33% ลบช่องว่าง) */
+                width: calc(33.333% - 14px); 
+            }
+
+            .lp-hero {
+                padding: 80px 20px; /* เพิ่มความสูง Hero */
+                background-color: #2563eb; /* สีน้ำเงินเข้ม */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Web Responsive & Mobile-First</h1>
+        <p>คู่มือการเขียน CSS Flexbox และ Media Queries</p>
+    </header>
+
+    <div class="container">
+        
+        <section>
+            <h2>หลักการ Mobile-First Approach</h2>
+            <p><strong>Mobile-First</strong> คือแนวคิดที่เราจะเขียน CSS สำหรับหน้าจอขนาดเล็ก (มือถือ) เป็นค่าเริ่มต้นก่อน แล้วค่อยเขียนทับ (Override) สำหรับหน้าจอที่ใหญ่ขึ้นโดยใช้ <code>@media (min-width: ...)</code></p>
+            
+            <div class="note">
+                <p><strong>ทำไมต้อง Mobile-First?</strong> เพราะโค้ดของมือถือมักจะซับซ้อนน้อยกว่า (มักเรียงเป็นคอลัมน์เดียว) การทำแบบนี้ช่วยให้โหลดเร็วขึ้นในมือถือ และจัดการโค้ดง่ายกว่าการเริ่มจาก Desktop แล้วค่อยมาย่อ</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>ตัวอย่าง: Landing Page Layout</h2>
+            <p>ลองขยายหรือย่อหน้าต่าง Browser ของคุณ เพื่อดูการเปลี่ยนแปลงของ Layout ด้านล่างนี้ (สังเกตสีของ Banner และจำนวนคอลัมน์)</p>
+
+            <!-- LIVE DEMO AREA -->
+            <div class="demo-preview">
+                <div class="demo-header">LIVE PREVIEW AREA</div>
+                
+                <div class="lp-container">
+                    <!-- Hero Section -->
+                    <div class="lp-hero">
+                        <h1>ยินดีต้อนรับสู่เว็บไซต์</h1>
+                        <p>ตัวอย่างการจัดหน้าแบบ Responsive</p>
+                        <button style="margin-top:10px; padding:10px 20px; border:none; background:white; color:#333; border-radius:4px; cursor:pointer;">เรียนรู้เพิ่มเติม</button>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="lp-features">
+                        <div class="lp-card">
+                            <span class="lp-card-icon">🚀</span>
+                            <h3>รวดเร็ว</h3>
+                            <p>โหลดหน้าเว็บได้ไว รองรับทุกอุปกรณ์</p>
+                        </div>
+                        <div class="lp-card">
+                            <span class="lp-card-icon">📱</span>
+                            <h3>รองรับมือถือ</h3>
+                            <p>ออกแบบด้วย Mobile-First Design</p>
+                        </div>
+                        <div class="lp-card">
+                            <span class="lp-card-icon">🎨</span>
+                            <h3>ยืดหยุ่น</h3>
+                            <p>จัดหน้าง่ายๆ ด้วย CSS Flexbox</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 20px; text-align: center; color: #666; font-size: 0.8rem;">
+                    &copy; 2024 Example Landing Page
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>คำอธิบายโค้ด (Code Explanation)</h2>
+            <p>นี่คือโค้ด CSS ที่ใช้ควบคุมการแสดงผลด้านบน โดยใช้ Flexbox ร่วมกับ Media Queries</p>
+
+            <h3>1. โครงสร้าง HTML</h3>
+            <pre><code><span class="token-selector">&lt;div class="lp-features"&gt;</span>
+    <span class="token-comment">&lt;!-- กล่อง Feature 3 ใบ --&gt;</span>
+    <span class="token-selector">&lt;div class="lp-card"&gt;</span>...<span class="token-selector">&lt;/div&gt;</span>
+    <span class="token-selector">&lt;div class="lp-card"&gt;</span>...<span class="token-selector">&lt;/div&gt;</span>
+    <span class="token-selector">&lt;div class="lp-card"&gt;</span>...<span class="token-selector">&lt;/div&gt;</span>
+<span class="token-selector">&lt;/div&gt;</span></code></pre>
+
+            <h3>2. CSS (Mobile First)</h3>
+            <p>เราเริ่มเขียนให้มือถือก่อน โดยกำหนดให้ <code>flex-direction: column</code> เพื่อให้กล่องเรียงลงมาในแนวตั้ง</p>
+            <pre><code><span class="token-comment">/* สไตล์พื้นฐาน (ใช้กับมือถือ และทุกจอถ้าไม่ถูกแก้) */</span>
+<span class="token-selector">.lp-features</span> <span class="token-bracket">{</span>
+    <span class="token-property">display</span>: flex;
+    <span class="token-property">flex-direction</span>: column; <span class="token-comment">/* เรียงแนวตั้ง */</span>
+    <span class="token-property">gap</span>: 20px;
+<span class="token-bracket">}</span>
+
+<span class="token-selector">.lp-card</span> <span class="token-bracket">{</span>
+    <span class="token-property">width</span>: 100%; <span class="token-comment">/* เต็มจอในมือถือ */</span>
+    <span class="token-property">background</span>: #fff;
+    <span class="token-property">padding</span>: 20px;
+    <span class="token-property">border-radius</span>: 8px;
+<span class="token-bracket">}</span></code></pre>
+
+            <h3>3. Media Queries (Tablet & Desktop)</h3>
+            <p>เมื่อหน้าจอกว้างขึ้น เราจะเปลี่ยนทิศทางเป็นแนวนอน และปรับความกว้างของกล่อง</p>
+            <pre><code><span class="token-comment">/* สำหรับ Tablet (หน้าจอกว้างกว่า 600px) */</span>
+<span class="token-media">@media (min-width: 600px)</span> <span class="token-bracket">{</span>
+    <span class="token-selector">.lp-features</span> <span class="token-bracket">{</span>
+        <span class="token-property">flex-direction</span>: row; <span class="token-comment">/* เปลี่ยนเป็นแนวนอน */</span>
+        <span class="token-property">flex-wrap</span>: wrap;     <span class="token-comment">/* อนุญาตให้ปัดตกบรรทัด */</span>
+    <span class="token-bracket">}</span>
+
+    <span class="token-selector">.lp-card</span> <span class="token-bracket">{</span>
+        <span class="token-comment">/* แบ่งครึ่ง (50% - ช่องว่าง) */</span>
+        <span class="token-property">width</span>: calc(50% - 10px); 
+    <span class="token-bracket">}</span>
+<span class="token-bracket">}</span>
+
+<span class="token-comment">/* สำหรับ Desktop (หน้าจอกว้างกว่า 900px) */</span>
+<span class="token-media">@media (min-width: 900px)</span> <span class="token-bracket">{</span>
+    <span class="token-selector">.lp-card</span> <span class="token-bracket">{</span>
+        <span class="token-comment">/* แบ่ง 3 ส่วน (33.33% - ช่องว่าง) */</span>
+        <span class="token-property">width</span>: calc(33.333% - 14px); 
+    <span class="token-bracket">}</span>
+<span class="token-bracket">}</span></code></pre>
+        </section>
+
+        <section>
+            <h2>สรุปเทคนิค Flexbox ที่ใช้</h2>
+            <ul style="list-style-type: circle; margin-left: 20px;">
+                <li><code>display: flex;</code>: เปิดใช้งาน Flexbox ที่ Container แม่</li>
+                <li><code>flex-direction:</code>: ควบคุมแกน (Column สำหรับมือถือ, Row สำหรับจอใหญ่)</li>
+                <li><code>flex-wrap: wrap;</code>: อนุญาตให้ Item หล่นไปบรรทัดใหม่ได้ถ้าที่ว่างไม่พอ</li>
+                <li><code>gap:</code>: กำหนดระยะห่างระหว่าง Item โดยไม่ต้องใช้ margin ยุ่งยาก</li>
+                <li><code>calc()</code>: ฟังก์ชัน CSS ช่วยคำนวณความกว้างที่แม่นยำ เช่น <code>50% - 10px</code></li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; background: #e2e8f0; margin-top: 3rem;">
+        <p>Responsive Design Tutorial Example</p>
+    </footer>
+
+</body>
+</html>

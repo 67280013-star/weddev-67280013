@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Web Design & CSS Flexbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e4e4e4;
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #0f3460, #e94560);
+            padding: 30px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 52, 96, 0.95);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: #e94560;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: #ff6b6b;
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Section Styles */
+        section {
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        section h2 {
+            color: #e94560;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e94560;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        section h2 .icon {
+            font-size: 1.5rem;
+        }
+
+        section h3 {
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            margin: 25px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #c4c4c4;
+        }
+
+        /* Code Block Styles */
+        .code-container {
+            background: #0d1117;
+            border-radius: 12px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 1px solid #30363d;
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .code-header span {
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #2ea043;
+        }
+
+        pre {
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        code {
+            color: #c9d1d9;
+        }
+
+        .comment { color: #8b949e; }
+        .tag { color: #7ee787; }
+        .property { color: #79c0ff; }
+        .value { color: #a5d6ff; }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .selector { color: #d2a8ff; }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), rgba(255, 107, 107, 0.1));
+            border-left: 4px solid #e94560;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+        }
+
+        .info-box.tip {
+            background: linear-gradient(135deg, rgba(35, 134, 54, 0.1), rgba(46, 160, 67, 0.1));
+            border-left-color: #238636;
+        }
+
+        .info-box.warning {
+            background: linear-gradient(135deg, rgba(210, 153, 34, 0.1), rgba(227, 179, 65, 0.1));
+            border-left-color: #d29922;
+        }
+
+        .info-box h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box.tip h4 { color: #3fb950; }
+        .info-box.warning h4 { color: #e3b341; }
+
+        /* Demo Container */
+        .demo-container {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed #e94560;
+        }
+
+        .demo-label {
+            color: #e94560;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Flexbox Demo Items */
+        .flex-demo {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(15, 52, 96, 0.5);
+            border-radius: 8px;
+            min-height: 100px;
+        }
+
+        .flex-item {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        /* Interactive Controls */
+        .controls {
+            background: rgba(15, 52, 96, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 10px 15px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            color: #c9d1d9;
+            font-family: 'Kanit', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(13, 17, 23, 0.8);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #30363d;
+        }
+
+        th {
+            background: #161b22;
+            color: #e94560;
+            font-weight: 600;
+        }
+
+        td {
+            color: #c9d1d9;
+        }
+
+        td code {
+            background: rgba(233, 69, 96, 0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        /* Responsive Preview */
+        .device-preview {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .device {
+            background: #0d1117;
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .device-screen {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 500;
+        }
+
+        .mobile .device-screen {
+            width: 80px;
+            height: 140px;
+        }
+
+        .tablet .device-screen {
+            width: 150px;
+            height: 110px;
+        }
+
+        .desktop .device-screen {
+            width: 200px;
+            height: 120px;
+        }
+
+        .device-label {
+            color: #8b949e;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        /* Live Demo Section */
+        .live-demo {
+            background: #0d1117;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .live-demo-header {
+            background: #161b22;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .live-demo-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .live-demo-header .dot.red { background: #ff5f56; }
+        .live-demo-header .dot.yellow { background: #ffbd2e; }
+        .live-demo-header .dot.green { background: #27ca40; }
+
+        .live-demo-content {
+            padding: 20px;
+        }
+
+        /* Responsive Cards Demo */
+        .cards-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card-demo {
+            flex: 1 1 250px;
+            background: linear-gradient(135deg, #0f3460, #16213e);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .card-demo:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-demo h4 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+
+        .card-demo p {
+            font-size: 0.9rem;
+            color: #8b949e;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 52, 96, 0.95);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            color: #8b949e;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            section h2 {
+                font-size: 1.4rem;
+            }
+
+            .device-preview {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Highlight Animation */
+        @keyframes highlight {
+            0% { background-color: rgba(233, 69, 96, 0.3); }
+            100% { background-color: transparent; }
+        }
+
+        .highlight {
+            animation: highlight 2s ease-out;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e94560;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📱 Responsive Web Design & CSS Flexbox</h1>
+        <p>เรียนรู้การออกแบบเว็บไซต์ให้รองรับทุกขนาดหน้าจอ</p>
+    </header>
+
+    <nav>
+        <a href="#intro">บทนำ</a>
+        <a href="#viewport">Viewport</a>
+        <a href="#media-queries">Media Queries</a>
+        <a href="#flexbox">Flexbox</a>
+        <a href="#responsive-flexbox">รวม Responsive + Flexbox</a>
+        <a href="#examples">ตัวอย่างจริง</a>
+    </nav>
+
+    <div class="container">
+        <!-- บทนำ -->
+        <section id="intro">
+            <h2><span class="icon">📖</span> Responsive Web Design คืออะไร?</h2>
+            
+            <p><strong>Responsive Web Design (RWD)</strong> คือแนวคิดในการออกแบบเว็บไซต์ให้สามารถปรับเปลี่ยนรูปแบบการแสดงผลได้อัตโนมัติตามขนาดหน้าจอของอุปกรณ์ที่ใช้เข้าชม ไม่ว่าจะเป็นมือถือ แท็บเล็ต หรือคอมพิวเตอร์</p>
+
+            <div class="info-box">
+                <h4>🎯 ทำไมต้อง Responsive?</h4>
+                <p>ปัจจุบันผู้ใช้งานเข้าเว็บไซต์จากอุปกรณ์หลากหลายขนาด การทำ Responsive ช่วยให้เว็บไซต์แสดงผลได้สวยงามและใช้งานได้ดีในทุกอุปกรณ์</p>
+            </div>
+
+            <h3>องค์ประกอบหลัก 3 ประการ</h3>
+            <div class="device-preview">
+                <div class="device mobile">
+                    <div class="device-screen">Mobile</div>
+                    <div class="device-label">≤ 576px</div>
+                </div>
+                <div class="device tablet">
+                    <div class="device-screen">Tablet</div>
+                    <div class="device-label">768px - 1024px</div>
+                </div>
+                <div class="device desktop">
+                    <div class="device-screen">Desktop</div>
+                    <div class="device-label">≥ 1024px</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>องค์ประกอบ</th>
+                            <th>คำอธิบาย</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Fluid Grids</code></td>
+                            <td>ใช้หน่วย % หรือ fr แทน px เพื่อให้ขนาดยืดหยุ่น</td>
+                        </tr>
+                        <tr>
+                            <td><code>Flexible Images</code></td>
+                            <td>รูปภาพปรับขนาดตาม container ด้วย max-width: 100%</td>
+                        </tr>
+                        <tr>
+                            <td><code>Media Queries</code></td>
+                            <td>เขียน CSS แยกตามขนาดหน้าจอที่กำหนด</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Viewport -->
+        <section id="viewport">
+            <h2><span class="icon">🖥️</span> Viewport Meta Tag</h2>
+            
+            <p>Viewport Meta Tag เป็นสิ่งจำเป็นสำหรับการทำ Responsive Design โดยต้องใส่ไว้ใน <code>&lt;head&gt;</code> ของทุกหน้าเว็บ</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>HTML - viewport meta tag</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">&lt;!-- ใส่ใน &lt;head&gt; ของ HTML --&gt;</span>
+<span class="tag">&lt;meta</span> 
+    <span class="property">name</span>=<span class="string">"viewport"</span> 
+    <span class="property">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>
+<span class="tag">&gt;</span></code></pre>
+            </div>
+
+            <div class="info-box tip">
+                <h4>💡 อธิบาย Attribute</h4>
+                <p><code>width=device-width</code> = กำหนดความกว้างเท่ากับหน้าจออุปกรณ์<br>
+                <code>initial-scale=1.0</code> = กำหนดการ zoom เริ่มต้นเป็น 100%</p>
+            </div>
+        </section>
+
+        <!-- Media Queries -->
+        <section id="media-queries">
+            <h2><span class="icon">📐</span> CSS Media Queries</h2>
+            
+            <p>Media Queries ช่วยให้เราสามารถกำหนด CSS ที่แตกต่างกันสำหรับขนาดหน้าจอที่ต่างกันได้</p>
+
+            <h3>รูปแบบการเขียน</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - Media Query Syntax</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">/* รูปแบบพื้นฐาน */</span>
+<span class="keyword">@media</span> (<span class="property">เงื่อนไข</span>) {
+    <span class="comment">/* CSS ที่จะใช้เมื่อเงื่อนไขเป็นจริง */</span>
+}
+
+<span class="comment">/* ตัวอย่าง: เมื่อหน้าจอกว้างอย่างน้อย 768px */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">768px</span>) {
+    <span class="selector">.container</span> {
+        <span class="property">width</span>: <span class="value">750px</span>;
+    }
+}</code></pre>
+            </div>
+
+            <h3>Mobile-First Approach (แนะนำ)</h3>
+            <p>เริ่มเขียน CSS สำหรับมือถือก่อน แล้วค่อยเพิ่ม Media Query สำหรับหน้าจอที่ใหญ่ขึ้น</p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - Mobile First Approach</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">/* === Base Styles (Mobile First) === */</span>
+<span class="selector">.container</span> {
+    <span class="property">width</span>: <span class="value">100%</span>;
+    <span class="property">padding</span>: <span class="value">15px</span>;
+}
+
+<span class="selector">.card</span> {
+    <span class="property">width</span>: <span class="value">100%</span>;
+    <span class="property">margin-bottom</span>: <span class="value">20px</span>;
+}
+
+<span class="comment">/* === Tablet (768px ขึ้นไป) === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">768px</span>) {
+    <span class="selector">.container</span> {
+        <span class="property">width</span>: <span class="value">750px</span>;
+        <span class="property">margin</span>: <span class="value">0 auto</span>;
+        <span class="property">padding</span>: <span class="value">20px</span>;
+    }
+    
+    <span class="selector">.card</span> {
+        <span class="property">width</span>: <span class="value">48%</span>;
+    }
+}
+
+<span class="comment">/* === Desktop (1024px ขึ้นไป) === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">1024px</span>) {
+    <span class="selector">.container</span> {
+        <span class="property">width</span>: <span class="value">960px</span>;
+        <span class="property">padding</span>: <span class="value">30px</span>;
+    }
+    
+    <span class="selector">.card</span> {
+        <span class="property">width</span>: <span class="value">31%</span>;
+    }
+}
+
+<span class="comment">/* === Large Desktop (1200px ขึ้นไป) === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">1200px</span>) {
+    <span class="selector">.container</span> {
+        <span class="property">width</span>: <span class="value">1140px</span>;
+    }
+}</code></pre>
+            </div>
+
+            <h3>Breakpoints มาตรฐาน</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Breakpoint</th>
+                            <th>ขนาดหน้าจอ</th>
+                            <th>อุปกรณ์</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>max-width: 576px</code></td>
+                            <td>≤ 576px</td>
+                            <td>📱 Mobile (Portrait)</td>
+                        </tr>
+                        <tr>
+                            <td><code>min-width: 576px</code></td>
+                            <td>≥ 576px</td>
+                            <td>📱 Mobile (Landscape)</td>
+                        </tr>
+                        <tr>
+                            <td><code>min-width: 768px</code></td>
+                            <td>≥ 768px</td>
+                            <td>📱 Tablet</td>
+                        </tr>
+                        <tr>
+                            <td><code>min-width: 1024px</code></td>
+                            <td>≥ 1024px</td>
+                            <td>💻 Desktop</td>
+                        </tr>
+                        <tr>
+                            <td><code>min-width: 1200px</code></td>
+                            <td>≥ 1200px</td>
+                            <td>🖥️ Large Desktop</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box warning">
+                <h4>⚠️ ข้อควรระวัง</h4>
+                <p><code>min-width</code> ใช้กับ Mobile-First (CSS ทำงานเมื่อหน้าจอ ≥ ค่าที่กำหนด)<br>
+                <code>max-width</code> ใช้กับ Desktop-First (CSS ทำงานเมื่อหน้าจอ ≤ ค่าที่กำหนด)</p>
+            </div>
+        </section>
+
+        <!-- Flexbox -->
+        <section id="flexbox">
+            <h2><span class="icon">📦</span> CSS Flexbox พื้นฐาน</h2>
+            
+            <p>Flexbox เป็นระบบ Layout ที่ช่วยจัดวาง Elements ใน 1 มิติ (แนวนอนหรือแนวตั้ง) ได้อย่างยืดหยุ่น</p>
+
+            <h3>เปิดใช้งาน Flexbox</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - เริ่มต้นใช้ Flexbox</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="selector">.container</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;  <span class="comment">/* เปิดใช้งาน Flexbox */</span>
+}</code></pre>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-label">🎨 ตัวอย่าง Flex Container</div>
+                <div class="flex-demo" id="flexDemo1">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                </div>
+            </div>
+
+            <h3>Flex Container Properties</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>ค่าที่ใช้บ่อย</th>
+                            <th>คำอธิบาย</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>flex-direction</code></td>
+                            <td>row | column</td>
+                            <td>กำหนดทิศทางการจัดวาง (แนวนอน/แนวตั้ง)</td>
+                        </tr>
+                        <tr>
+                            <td><code>justify-content</code></td>
+                            <td>flex-start | center | space-between</td>
+                            <td>จัดวางตามแกนหลัก (Main Axis)</td>
+                        </tr>
+                        <tr>
+                            <td><code>align-items</code></td>
+                            <td>flex-start | center | stretch</td>
+                            <td>จัดวางตามแกนรอง (Cross Axis)</td>
+                        </tr>
+                        <tr>
+                            <td><code>flex-wrap</code></td>
+                            <td>nowrap | wrap</td>
+                            <td>กำหนดให้ items ตัดบรรทัดหรือไม่</td>
+                        </tr>
+                        <tr>
+                            <td><code>gap</code></td>
+                            <td>10px, 1rem</td>
+                            <td>ระยะห่างระหว่าง items</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>ตัวอย่าง flex-direction</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - flex-direction</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">/* แนวนอน (ค่าเริ่มต้น) */</span>
+<span class="selector">.row-layout</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">flex-direction</span>: <span class="value">row</span>;
+}
+
+<span class="comment">/* แนวตั้ง */</span>
+<span class="selector">.column-layout</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">flex-direction</span>: <span class="value">column</span>;
+}</code></pre>
+            </div>
+
+            <h3>ตัวอย่าง justify-content</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - justify-content</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="selector">.container</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">justify-content</span>: <span class="value">flex-start</span>;    <span class="comment">/* ชิดซ้าย */</span>
+    <span class="property">justify-content</span>: <span class="value">center</span>;        <span class="comment">/* กึ่งกลาง */</span>
+    <span class="property">justify-content</span>: <span class="value">flex-end</span>;      <span class="comment">/* ชิดขวา */</span>
+    <span class="property">justify-content</span>: <span class="value">space-between</span>; <span class="comment">/* กระจายห่างเท่ากัน */</span>
+    <span class="property">justify-content</span>: <span class="value">space-around</span>;  <span class="comment">/* มีช่องว่างรอบๆ */</span>
+    <span class="property">justify-content</span>: <span class="value">space-evenly</span>; <span class="comment">/* ช่องว่างเท่ากันทั้งหมด */</span>
+}</code></pre>
+            </div>
+
+            <h3>ตัวอย่าง align-items</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - align-items</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="selector">.container</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">height</span>: <span class="value">200px</span>;
+    <span class="property">align-items</span>: <span class="value">flex-start</span>;  <span class="comment">/* ชิดบน */</span>
+    <span class="property">align-items</span>: <span class="value">center</span>;      <span class="comment">/* กึ่งกลาง */</span>
+    <span class="property">align-items</span>: <span class="value">flex-end</span>;    <span class="comment">/* ชิดล่าง */</span>
+    <span class="property">align-items</span>: <span class="value">stretch</span>;     <span class="comment">/* ยืดเต็มความสูง */</span>
+}</code></pre>
+            </div>
+
+            <h3>Flex Item Properties</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - Flex Item Properties</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="selector">.flex-item</span> {
+    <span class="property">flex-grow</span>: <span class="value">1</span>;     <span class="comment">/* ขยายตัวเพื่อเติมพื้นที่ว่าง */</span>
+    <span class="property">flex-shrink</span>: <span class="value">0</span>;   <span class="comment">/* ไม่หดตัวเมื่อพื้นที่ไม่พอ */</span>
+    <span class="property">flex-basis</span>: <span class="value">200px</span>; <span class="comment">/* ขนาดเริ่มต้น */</span>
+}
+
+<span class="comment">/* หรือเขียนแบบย่อ */</span>
+<span class="selector">.flex-item</span> {
+    <span class="property">flex</span>: <span class="value">1</span>;           <span class="comment">/* flex-grow: 1, flex-shrink: 1, flex-basis: 0 */</span>
+    <span class="property">flex</span>: <span class="value">0 0 200px</span>;   <span class="comment">/* ไม่โต ไม่หด ขนาด 200px */</span>
+}</code></pre>
+            </div>
+
+            <div class="info-box tip">
+                <h4>💡 เคล็ดลับ Flexbox</h4>
+                <p><code>justify-content</code> = จัดแนวหลัก (แนวนอนถ้า row, แนวตั้งถ้า column)<br>
+                <code>align-items</code> = จัดแนวรอง (แนวตั้งถ้า row, แนวนอนถ้า column)<br>
+                ใช้ <code>gap</code> แทน margin สำหรับระยะห่างระหว่าง items</p>
+            </div>
+        </section>
+
+        <!-- Responsive + Flexbox -->
+        <section id="responsive-flexbox">
+            <h2><span class="icon">🔗</span> รวม Responsive Design กับ Flexbox</h2>
+            
+            <p>การใช้ Flexbox ร่วมกับ Media Queries ช่วยให้สร้าง Layout ที่ปรับเปลี่ยนได้ตามขนาดหน้าจออย่างง่ายดาย</p>
+
+            <h3>Navigation Bar แบบ Responsive</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - Responsive Navigation</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">/* === Base: Mobile First === */</span>
+<span class="selector">.navbar</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">flex-direction</span>: <span class="value">column</span>;  <span class="comment">/* แนวตั้งสำหรับมือถือ */</span>
+    <span class="property">align-items</span>: <span class="value">center</span>;
+    <span class="property">gap</span>: <span class="value">10px</span>;
+    <span class="property">padding</span>: <span class="value">15px</span>;
+    <span class="property">background</span>: <span class="value">#333</span>;
+}
+
+<span class="selector">.nav-link</span> {
+    <span class="property">color</span>: <span class="value">white</span>;
+    <span class="property">text-decoration</span>: <span class="value">none</span>;
+    <span class="property">padding</span>: <span class="value">10px 20px</span>;
+}
+
+<span class="comment">/* === Tablet & Desktop: แนวนอน === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">768px</span>) {
+    <span class="selector">.navbar</span> {
+        <span class="property">flex-direction</span>: <span class="value">row</span>;      <span class="comment">/* เปลี่ยนเป็นแนวนอน */</span>
+        <span class="property">justify-content</span>: <span class="value">space-between</span>;
+    }
+}</code></pre>
+            </div>
+
+            <h3>Card Layout แบบ Responsive</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS - Responsive Cards with Flexbox</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="comment">/* === Container === */</span>
+<span class="selector">.cards-container</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">flex-wrap</span>: <span class="value">wrap</span>;      <span class="comment">/* ให้ตัดบรรทัดได้ */</span>
+    <span class="property">gap</span>: <span class="value">20px</span>;
+    <span class="property">padding</span>: <span class="value">20px</span>;
+}
+
+<span class="comment">/* === Base: Mobile (1 card ต่อแถว) === */</span>
+<span class="selector">.card</span> {
+    <span class="property">flex</span>: <span class="value">1 1 100%</span>;     <span class="comment">/* ขยายเต็มความกว้าง */</span>
+    <span class="property">background</span>: <span class="value">#f5f5f5</span>;
+    <span class="property">padding</span>: <span class="value">20px</span>;
+    <span class="property">border-radius</span>: <span class="value">10px</span>;
+}
+
+<span class="comment">/* === Tablet: 2 cards ต่อแถว === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">768px</span>) {
+    <span class="selector">.card</span> {
+        <span class="property">flex</span>: <span class="value">1 1 calc(50% - 10px)</span>;  <span class="comment">/* 50% ลบ gap */</span>
+    }
+}
+
+<span class="comment">/* === Desktop: 3 cards ต่อแถว === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">1024px</span>) {
+    <span class="selector">.card</span> {
+        <span class="property">flex</span>: <span class="value">1 1 calc(33.333% - 14px)</span>;  <span class="comment">/* 33.33% ลบ gap */</span>
+    }
+}
+
+<span class="comment">/* === Large Desktop: 4 cards ต่อแถว === */</span>
+<span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">1200px</span>) {
+    <span class="selector">.card</span> {
+        <span class="property">flex</span>: <span class="value">1 1 calc(25% - 15px)</span>;  <span class="comment">/* 25% ลบ gap */</span>
+    }
+}</code></pre>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-label">🎨 ตัวอย่าง Responsive Cards (ลองย่อ/ขยายหน้าจอดู)</div>
+                <div class="cards-demo">
+                    <div class="card-demo">
+                        <h4>📱 Card 1</h4>
+                        <p>เนื้อหาการ์ดที่ 1</p>
+                    </div>
+                    <div class="card-demo">
+                        <h4>💻 Card 2</h4>
+                        <p>เนื้อหาการ์ดที่ 2</p>
+                    </div>
+                    <div class="card-demo">
+                        <h4>🖥️ Card 3</h4>
+                        <p>เนื้อหาการ์ดที่ 3</p>
+                    </div>
+                    <div class="card-demo">
+                        <h4>⌨️ Card 4</h4>
+                        <p>เนื้อหาการ์ดที่ 4</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ตัวอย่างจริง -->
+        <section id="examples">
+            <h2><span class="icon">🎯</span> ตัวอย่างโค้ดสมบูรณ์</h2>
+            
+            <p>โค้ดตัวอย่างที่สามารถ copy ไปใช้งานได้ทันที</p>
+
+            <h3>ตัวอย่างที่ 1: Responsive Header</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>HTML + CSS - Complete Responsive Header</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="property">lang</span>=<span class="string">"th"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="property">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="property">name</span>=<span class="string">"viewport"</span> <span class="property">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Responsive Header<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;style&gt;</span>
+        <span class="comment">/* Reset */</span>
+        <span class="selector">*</span> {
+            <span class="property">margin</span>: <span class="value">0</span>;
+            <span class="property">padding</span>: <span class="value">0</span>;
+            <span class="property">box-sizing</span>: <span class="value">border-box</span>;
+        }
+
+        <span class="comment">/* Header */</span>
+        <span class="selector">.header</span> {
+            <span class="property">display</span>: <span class="value">flex</span>;
+            <span class="property">flex-direction</span>: <span class="value">column</span>;
+            <span class="property">align-items</span>: <span class="value">center</span>;
+            <span class="property">padding</span>: <span class="value">15px</span>;
+            <span class="property">background</span>: <span class="value">#2c3e50</span>;
+        }
+
+        <span class="selector">.logo</span> {
+            <span class="property">color</span>: <span class="value">white</span>;
+            <span class="property">font-size</span>: <span class="value">1.5rem</span>;
+            <span class="property">font-weight</span>: <span class="value">bold</span>;
+            <span class="property">margin-bottom</span>: <span class="value">15px</span>;
+        }
+
+        <span class="selector">.nav</span> {
+            <span class="property">display</span>: <span class="value">flex</span>;
+            <span class="property">flex-direction</span>: <span class="value">column</span>;
+            <span class="property">gap</span>: <span class="value">10px</span>;
+            <span class="property">width</span>: <span class="value">100%</span>;
+        }
+
+        <span class="selector">.nav a</span> {
+            <span class="property">color</span>: <span class="value">white</span>;
+            <span class="property">text-decoration</span>: <span class="value">none</span>;
+            <span class="property">padding</span>: <span class="value">10px</span>;
+            <span class="property">text-align</span>: <span class="value">center</span>;
+            <span class="property">background</span>: <span class="value">#34495e</span>;
+            <span class="property">border-radius</span>: <span class="value">5px</span>;
+        }
+
+        <span class="selector">.nav a:hover</span> {
+            <span class="property">background</span>: <span class="value">#e74c3c</span>;
+        }
+
+        <span class="comment">/* Tablet ขึ้นไป */</span>
+        <span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">768px</span>) {
+            <span class="selector">.header</span> {
+                <span class="property">flex-direction</span>: <span class="value">row</span>;
+                <span class="property">justify-content</span>: <span class="value">space-between</span>;
+            }
+
+            <span class="selector">.logo</span> {
+                <span class="property">margin-bottom</span>: <span class="value">0</span>;
+            }
+
+            <span class="selector">.nav</span> {
+                <span class="property">flex-direction</span>: <span class="value">row</span>;
+                <span class="property">width</span>: <span class="value">auto</span>;
+            }
+
+            <span class="selector">.nav a</span> {
+                <span class="property">background</span>: <span class="value">transparent</span>;
+            }
+        }
+    <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;header</span> <span class="property">class</span>=<span class="string">"header"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"logo"</span><span class="tag">&gt;</span>🚀 MyWebsite<span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;nav</span> <span class="property">class</span>=<span class="string">"nav"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;a</span> <span class="property">href</span>=<span class="string">"#"</span><span class="tag">&gt;</span>หน้าแรก<span class="tag">&lt;/a&gt;</span>
+            <span class="tag">&lt;a</span> <span class="property">href</span>=<span class="string">"#"</span><span class="tag">&gt;</span>เกี่ยวกับ<span class="tag">&lt;/a&gt;</span>
+            <span class="tag">&lt;a</span> <span class="property">href</span>=<span class="string">"#"</span><span class="tag">&gt;</span>บริการ<span class="tag">&lt;/a&gt;</span>
+            <span class="tag">&lt;a</span> <span class="property">href</span>=<span class="string">"#"</span><span class="tag">&gt;</span>ติดต่อ<span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;/nav&gt;</span>
+    <span class="tag">&lt;/header&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+            </div>
+
+            <h3>ตัวอย่างที่ 2: Responsive Product Cards</h3>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>HTML + CSS - Complete Responsive Cards</span>
+                    <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+                </div>
+                <pre><code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="property">lang</span>=<span class="string">"th"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="property">charset</span>=<span class="string">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="property">name</span>=<span class="string">"viewport"</span> <span class="property">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Responsive Cards<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;style&gt;</span>
+        <span class="comment">/* Reset & Base */</span>
+        <span class="selector">*</span> {
+            <span class="property">margin</span>: <span class="value">0</span>;
+            <span class="property">padding</span>: <span class="value">0</span>;
+            <span class="property">box-sizing</span>: <span class="value">border-box</span>;
+        }
+
+        <span class="selector">body</span> {
+            <span class="property">font-family</span>: <span class="value">'Segoe UI', sans-serif</span>;
+            <span class="property">background</span>: <span class="value">#f0f2f5</span>;
+            <span class="property">padding</span>: <span class="value">20px</span>;
+        }
+
+        <span class="comment">/* Container */</span>
+        <span class="selector">.products</span> {
+            <span class="property">display</span>: <span class="value">flex</span>;
+            <span class="property">flex-wrap</span>: <span class="value">wrap</span>;
+            <span class="property">gap</span>: <span class="value">20px</span>;
+            <span class="property">max-width</span>: <span class="value">1200px</span>;
+            <span class="property">margin</span>: <span class="value">0 auto</span>;
+        }
+
+        <span class="comment">/* Card - Mobile First */</span>
+        <span class="selector">.card</span> {
+            <span class="property">flex</span>: <span class="value">1 1 100%</span>;
+            <span class="property">background</span>: <span class="value">white</span>;
+            <span class="property">border-radius</span>: <span class="value">15px</span>;
+            <span class="property">overflow</span>: <span class="value">hidden</span>;
+            <span class="property">box-shadow</span>: <span class="value">0 4px 15px rgba(0,0,0,0.1)</span>;
+            <span class="property">transition</span>: <span class="value">transform 0.3s</span>;
+        }
+
+        <span class="selector">.card:hover</span> {
+            <span class="property">transform</span>: <span class="value">translateY(-5px)</span>;
+        }
+
+        <span class="selector">.card-image</span> {
+            <span class="property">width</span>: <span class="value">100%</span>;
+            <span class="property">height</span>: <span class="value">200px</span>;
+            <span class="property">background</span>: <span class="value">linear-gradient(135deg, #667eea, #764ba2)</span>;
+            <span class="property">display</span>: <span class="value">flex</span>;
+            <span class="property">align-items</span>: <span class="value">center</span>;
+            <span class="property">justify-content</span>: <span class="value">center</span>;
+            <span class="property">color</span>: <span class="value">white</span>;
+            <span class="property">font-size</span>: <span class="value">3rem</span>;
+        }
+
+        <span class="selector">.card-content</span> {
+            <span class="property">padding</span>: <span class="value">20px</span>;
+        }
+
+        <span class="selector">.card-title</span> {
+            <span class="property">font-size</span>: <span class="value">1.2rem</span>;
+            <span class="property">margin-bottom</span>: <span class="value">10px</span>;
+            <span class="property">color</span>: <span class="value">#333</span>;
+        }
+
+        <span class="selector">.card-price</span> {
+            <span class="property">font-size</span>: <span class="value">1.5rem</span>;
+            <span class="property">color</span>: <span class="value">#e74c3c</span>;
+            <span class="property">font-weight</span>: <span class="value">bold</span>;
+            <span class="property">margin-bottom</span>: <span class="value">15px</span>;
+        }
+
+        <span class="selector">.card-btn</span> {
+            <span class="property">width</span>: <span class="value">100%</span>;
+            <span class="property">padding</span>: <span class="value">12px</span>;
+            <span class="property">background</span>: <span class="value">#3498db</span>;
+            <span class="property">color</span>: <span class="value">white</span>;
+            <span class="property">border</span>: <span class="value">none</span>;
+            <span class="property">border-radius</span>: <span class="value">8px</span>;
+            <span class="property">cursor</span>: <span class="value">pointer</span>;
+            <span class="property">font-size</span>: <span class="value">1rem</span>;
+        }
+
+        <span class="selector">.card-btn:hover</span> {
+            <span class="property">background</span>: <span class="value">#2980b9</span>;
+        }
+
+        <span class="comment">/* Tablet: 2 columns */</span>
+        <span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">600px</span>) {
+            <span class="selector">.card</span> {
+                <span class="property">flex</span>: <span class="value">1 1 calc(50% - 10px)</span>;
+            }
+        }
+
+        <span class="comment">/* Desktop: 3 columns */</span>
+        <span class="keyword">@media</span> (<span class="property">min-width</span>: <span class="value">900px</span>) {
+            <span class="selector">.card</span> {
+                <span class="property">flex</span>: <span class="value">1 1 calc(33.333% - 14px)</span>;
+            }
+        }
+    <span class="tag">&lt;/style&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"products"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-image"</span><span class="tag">&gt;</span>📱<span class="tag">&lt;/div&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-content"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3</span> <span class="property">class</span>=<span class="string">"card-title"</span><span class="tag">&gt;</span>สมาร์ทโฟน<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;p</span> <span class="property">class</span>=<span class="string">"card-price"</span><span class="tag">&gt;</span>฿15,900<span class="tag">&lt;/p&gt;</span>
+                <span class="tag">&lt;button</span> <span class="property">class</span>=<span class="string">"card-btn"</span><span class="tag">&gt;</span>เพิ่มลงตะกร้า<span class="tag">&lt;/button&gt;</span>
+            <span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+
+        <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-image"</span><span class="tag">&gt;</span>💻<span class="tag">&lt;/div&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-content"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3</span> <span class="property">class</span>=<span class="string">"card-title"</span><span class="tag">&gt;</span>แล็ปท็อป<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;p</span> <span class="property">class</span>=<span class="string">"card-price"</span><span class="tag">&gt;</span>฿32,500<span class="tag">&lt;/p&gt;</span>
+                <span class="tag">&lt;button</span> <span class="property">class</span>=<span class="string">"card-btn"</span><span class="tag">&gt;</span>เพิ่มลงตะกร้า<span class="tag">&lt;/button&gt;</span>
+            <span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+
+        <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-image"</span><span class="tag">&gt;</span>🎧<span class="tag">&lt;/div&gt;</span>
+            <span class="tag">&lt;div</span> <span class="property">class</span>=<span class="string">"card-content"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;h3</span> <span class="property">class</span>=<span class="string">"card-title"</span><span class="tag">&gt;</span>หูฟังไร้สาย<span class="tag">&lt;/h3&gt;</span>
+                <span class="tag">&lt;p</span> <span class="property">class</span>=<span class="string">"card-price"</span><span class="tag">&gt;</span>฿2,990<span class="tag">&lt;/p&gt;</span>
+                <span class="tag">&lt;button</span> <span class="property">class</span>=<span class="string">"card-btn"</span><span class="tag">&gt;</span>เพิ่มลงตะกร้า<span class="tag">&lt;/button&gt;</span>
+            <span class="tag">&lt;/div&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+            </div>
+
+            <div class="info-box tip">
+                <h4>💡 สรุปหลักการสำคัญ</h4>
+                <p>1. ใส่ viewport meta tag เสมอ<br>
+                2. ใช้ Mobile-First Approach (เริ่มจากมือถือ)<br>
+                3. ใช้ <code>flex-wrap: wrap</code> เพื่อให้ items ตัดบรรทัดได้<br>
+                4. ใช้ <code>flex: 1 1 calc(XX% - gap)</code> เพื่อกำหนดจำนวน columns<br>
+                5. ทดสอบกับหลายขนาดหน้าจอเสมอ</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>📚 เอกสารประกอบการเรียน Web Application Development</p>
+        <p style="margin-top: 10px;">Responsive Web Design & CSS Flexbox</p>
+    </footer>
+
+    <script>
+        // Copy code function
+        function copyCode(button) {
+            const codeBlock = button.closest('.code-container').querySelector('code');
+            const text = codeBlock.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = '#238636';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Add highlight effect
+                targetSection.classList.add('highlight');
+                setTimeout(() => {
+                    targetSection.classList.remove('highlight');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
